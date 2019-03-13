@@ -45,31 +45,33 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 	}
 
 	private void right(BorderPane layout) throws FileNotFoundException {
-		image = new Image(new FileInputStream("C:\\Users\\itayz\\eclipse-workspace\\Lab2\\carexample.jpg")); 
-	    imageView = new ImageView(image); 
-	    imageView.setX(70); 
-	    imageView.setY(55);
-	    imageView.setFitHeight(355); 
-	    imageView.setFitWidth(300);
-	    Stage fileStage = new Stage();
-	    FileChooser fileChooser = new FileChooser();
-        Button button = new Button("בחר תמונה");
-        button.setOnAction(e -> {
-            File selectedFile = fileChooser.showOpenDialog(carStage);
-            try {
-				image = new Image(new FileInputStream(selectedFile.toURI().toURL().toExternalForm()));
-				imageView = new ImageView(image); 
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (MalformedURLException e1) {
-				// TODO Auto-generated catch block
+		image = new Image(new FileInputStream("C:\\Users\\itayz\\eclipse-workspace\\Lab2\\carexample.jpg"));
+		imageView = new ImageView(image);
+		imageView.setX(70);
+		imageView.setY(55);
+		imageView.setFitHeight(355);
+		imageView.setFitWidth(300);
+		Stage fileStage = new Stage();
+		FileChooser fileChooser = new FileChooser();
+		Button button = new Button("בחר תמונה");
+		Scene scene = new Scene(button, 960, 600);
+		fileStage.setScene(scene);
+		layout.setRight(combine(button, imageView));
+		button.setOnAction(e -> {
+			File selectedFile = fileChooser.showOpenDialog(carStage);
+			try {
+				System.out.println(selectedFile.getPath());
+				image = new Image(new FileInputStream(selectedFile.getPath()));
+				System.out.println(selectedFile.toURI().toURL().toExternalForm().toString());
+				imageView.setImage(image);
+			} catch (FileNotFoundException | MalformedURLException e1) {
+				
+				
 				e1.printStackTrace();
 			}
-        });
-        Scene scene = new Scene(button,960, 600);
-        fileStage.setScene(scene);
-	    layout.setRight(combine(button, imageView));
+	
+
+		});
 	}
 
 	private void sizeOfStage() {
