@@ -45,7 +45,7 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 	}
 
 	private void right(BorderPane layout) throws FileNotFoundException {
-		image = new Image(new FileInputStream("C:\\Users\\itayz\\eclipse-workspace\\Lab2\\carexample.jpg"));
+		image = new Image(new FileInputStream(_CAR_EXAMPLE_));
 		imageView = new ImageView(image);
 		imageView.setX(70);
 		imageView.setY(55);

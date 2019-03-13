@@ -108,14 +108,9 @@ public interface CarPaneFinals2 {
 	
 	
 	//------- Image -------
-	 
+	String _CAR_EXAMPLE_ ="C:\\Users\\itayz\\eclipse-workspace\\Lab2\\carexample.jpg";
      
-//     //Setting the position of the image 
-     
-//     
-//     //setting the fit height and width of the image view 
-//     imageView.setFitHeight(455); 
-//     imageView.setFitWidth(500); 
+
 	ArrayList<TextField> textFields = new ArrayList<>();
 	ArrayList<HBox> hboxes = new ArrayList<>();
 	ArrayList<Label> labels = new ArrayList<>();
