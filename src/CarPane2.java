@@ -18,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -25,15 +27,19 @@ import javafx.stage.Stage;
 public class CarPane2 extends Application implements CarPaneFinals2 {
 	private Stage carStage;
 	private Scene carScene;
-	private Image image;
-	private ImageView imageView;
+	private Image image1;
+	private ImageView imageView1;
+	private Image image2;
+	private ImageView imageView2;
+	private Image image3;
+	private ImageView imageView3;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		carStage = new Stage();
 		BorderPane layout = new BorderPane();
 		carScene = new Scene(layout);
-		carStage.setTitle("øëá");
+		carStage.setTitle("×¨×›×‘");
 		GridPane center = new GridPane();
 		enterFieldsToCenter(center);
 		right(layout);
@@ -43,35 +49,56 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 		carStage.show();
 
 	}
+//	private void pic(Image image, ImageView view,Button btn,FileChooser chooser) throws FileNotFoundException {
+//		image = new Image(new FileInputStream(_CAR_EXAMPLE_));
+//		view = new ImageView(image1);
+//		view.setX(70);
+//		view.setY(55);
+//		view.setFitHeight(255);
+//		view.setFitWidth(300);
+//		
+//	}
 
 	private void right(BorderPane layout) throws FileNotFoundException {
-		image = new Image(new FileInputStream(_CAR_EXAMPLE_));
-		imageView = new ImageView(image);
-		imageView.setX(70);
-		imageView.setY(55);
-		imageView.setFitHeight(355);
-		imageView.setFitWidth(300);
-		Stage fileStage = new Stage();
-		FileChooser fileChooser = new FileChooser();
-		Button button = new Button("áçø úîåðä");
-		Scene scene = new Scene(button, 960, 600);
-		fileStage.setScene(scene);
-		layout.setRight(combine(button, imageView));
-		button.setOnAction(e -> {
-			File selectedFile = fileChooser.showOpenDialog(carStage);
+		VBox pics = new VBox();
+		Button button1 = new Button("×‘×—×¨ ×ª×ž×•× ×”");
+		FileChooser fileChooser1 = new FileChooser();
+		image1 = new Image(new FileInputStream(_CAR_EXAMPLE_));
+		imageView1 = new ImageView(image1);
+		imageView1.setX(70);
+		imageView1.setY(55);
+		imageView1.setFitHeight(255);
+		imageView1.setFitWidth(300);
+		imageView1.setOnMouseClicked(e -> {
+			showPic(image1);
+		});
+
+		
+		button1.setOnAction(e -> {
+			File selectedFile = fileChooser1.showOpenDialog(carStage);
 			try {
-				System.out.println(selectedFile.getPath());
-				image = new Image(new FileInputStream(selectedFile.getPath()));
-				System.out.println(selectedFile.toURI().toURL().toExternalForm().toString());
-				imageView.setImage(image);
-			} catch (FileNotFoundException | MalformedURLException e1) {
-				
-				
+				image1 = new Image(new FileInputStream(selectedFile.getPath()));
+				imageView1.setImage(image1);
+			} catch (FileNotFoundException  e1) {
 				e1.printStackTrace();
 			}
 	
 
 		});
+		pics.getChildren().add(combine(button1, imageView1));
+		layout.setRight(pics);
+	}
+
+	protected void showPic(Image image) {
+		ImageView cloned = new ImageView(image);
+		cloned.setFitHeight(600);
+		cloned.setFitWidth(960);
+		Stage imageStage = new Stage();
+		StackPane picBox = new StackPane();
+		picBox.getChildren().add(cloned);
+		Scene scene = new Scene(picBox, 960, 600);
+		imageStage.setScene(scene);
+		imageStage.show();
 	}
 
 	private void sizeOfStage() {

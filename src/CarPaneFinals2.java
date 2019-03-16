@@ -109,7 +109,7 @@ public interface CarPaneFinals2 {
 	
 	//------- Image -------
 	String _CAR_EXAMPLE_ ="C:\\Users\\itayz\\eclipse-workspace\\Lab2\\carexample.jpg";
-     
+    final int NUMBER_OF_PICTURS = 4;
 
 	ArrayList<TextField> textFields = new ArrayList<>();
 	ArrayList<HBox> hboxes = new ArrayList<>();
