@@ -92,24 +92,29 @@ public interface CarPaneFinals2 {
 	TextField HPTF = new TextField();
 	Label HPL = new Label("כ\"ס");
 
-	TextField tireSizeTF = new TextField();
-	Label tireSizeL = new Label("צמיגים");
+	final TextField tireSizeTF = new TextField();
+	final Label tireSizeL = new Label("צמיגים");
 
-	TextField airBagsTF = new TextField();
-	Label airBagsL = new Label("כריות אוויר");
+	final TextField airBagsTF = new TextField();
+	final Label airBagsL = new Label("כריות אוויר");
 
-	TextField pollutionTF = new TextField();
-	Label pollutionL = new Label("זיהום אוויר");
+	final TextField pollutionTF = new TextField();
+	final Label pollutionL = new Label("זיהום אוויר");
 
-	CheckBox isProtection = new CheckBox("מיגון");
-	CheckBox IsSunRoof = new CheckBox("חלון בגג");
-	CheckBox isAutoMatic = new CheckBox("אוטומט");
-
+	final CheckBox isProtection = new CheckBox("מיגון");
+	final CheckBox IsSunRoof = new CheckBox("חלון בגג");
+	final CheckBox isAutoMatic = new CheckBox("אוטומט");
 	
+	//---------sixth row ------------
+	
+	final TextField discriptionTF = new TextField();
+	final Label discriptionL = new Label("תיאור");
+
+	final TextField noteTF = new TextField();
+	final Label noteL = new Label("הערות");
 	
 	//------- Image -------
 	String _CAR_EXAMPLE_ ="C:\\Users\\itayz\\eclipse-workspace\\Lab2\\carexample.jpg";
-    final int NUMBER_OF_PICTURS = 4;
 
 	ArrayList<TextField> textFields = new ArrayList<>();
 	ArrayList<HBox> hboxes = new ArrayList<>();
