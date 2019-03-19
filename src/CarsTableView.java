@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -40,7 +42,13 @@ public class CarsTableView extends TableView<Car> {
 	{
 	    if (event.getClickCount() == 2) //Checking double click
 	    {
-	        System.out.println(CarPane.getCarPaneInstance(this.getSelectionModel().getSelectedItem(),true));
+	    	try {
+				new CarPane2(this.getSelectionModel().getSelectedItem());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        //CarPane.getCarPaneInstance(this.getSelectionModel().getSelectedItem(),true);
 	    }
 	}
 	public Inventory getUi() {

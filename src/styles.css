@@ -20,7 +20,7 @@
    	-fx-font-size:11pt;
 }
 
-.grid{
+#grid{
 	-fx-alignment: center-left;
 	-fx-background-image: url("C:\Users\itayz\eclipse-workspace\Itay'sCar\src\CrystalClear.jpg");
    	-fx-background-repeat: stretch;   

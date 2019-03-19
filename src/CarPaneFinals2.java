@@ -1,4 +1,3 @@
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,8 +6,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public interface CarPaneFinals2 {
@@ -70,27 +67,27 @@ public interface CarPaneFinals2 {
 	TextField dayTF = new TextField();
 	Label dayL = new Label("יום");
 
-	TextField monthlypriceTF = new TextField();
-	Label montlypriceL = new Label("מחיר חודשי");
+	final TextField monthlypriceTF = new TextField();
+	final Label montlypriceL = new Label("מחיר חודשי");
 
-	TextField testpriceTF = new TextField();
-	Label testpriceL = new Label("סכום טסט");
+	final TextField testpriceTF = new TextField();
+	final Label testpriceL = new Label("סכום טסט");
 
-	TextField testDateTF = new TextField();
-	Label testpDateL = new Label("תאריך טסט");
+	final TextField testDateTF = new TextField();
+	final Label testpDateL = new Label("תאריך טסט");
 
-	TextField numOfDoorsTF = new TextField();
-	Label numOfDoorsL = new Label("דלתות");
+	final TextField numOfDoorsTF = new TextField();
+	final Label numOfDoorsL = new Label("דלתות");
 
-	TextField numOfOwnersTF = new TextField();
-	Label numOfOwnersL = new Label("מ.בעלים");
+	final TextField numOfOwnersTF = new TextField();
+	final Label numOfOwnersL = new Label("מ.בעלים");
 
 	// -------- fifth row nodes -----------
-	TextField KMTF = new TextField();
-	Label KML = new Label("מד אוץ");
+	final TextField KMTF = new TextField();
+	final Label KML = new Label("מד אוץ");
 
-	TextField HPTF = new TextField();
-	Label HPL = new Label("כ\"ס");
+	final TextField HPTF = new TextField();
+	final Label HPL = new Label("כ\"ס");
 
 	final TextField tireSizeTF = new TextField();
 	final Label tireSizeL = new Label("צמיגים");
@@ -104,23 +101,28 @@ public interface CarPaneFinals2 {
 	final CheckBox isProtection = new CheckBox("מיגון");
 	final CheckBox IsSunRoof = new CheckBox("חלון בגג");
 	final CheckBox isAutoMatic = new CheckBox("אוטומט");
-	
-	//---------sixth row ------------
-	
+
+	// ---------sixth row ------------
+
 	final TextField discriptionTF = new TextField();
 	final Label discriptionL = new Label("תיאור");
 
 	final TextField noteTF = new TextField();
 	final Label noteL = new Label("הערות");
+
+	final ObservableList<String> bondages = FXCollections.observableArrayList("בנק לאומי","בנק מזרחי","כלמוביל","קרסו","מכוניות המזרח","בנק פועלים");
+	final ComboBox<String> bondagesCB = new ComboBox<>(bondages);
+	final Label bondagesL = new Label("שעבוד");
 	
-	//------- Image -------
-	String _CAR_EXAMPLE_ ="C:\\Users\\itayz\\eclipse-workspace\\Lab2\\carexample.jpg";
+	//---------bottom------------
+	final Button details = new Button("פרטים נוספים");
+	
+	// ------- Image -------
+	String _CAR_EXAMPLE_ = "C:\\Users\\itayz\\eclipse-workspace\\Lab2\\carexample.jpg";
 
 	ArrayList<TextField> textFields = new ArrayList<>();
 	ArrayList<HBox> hboxes = new ArrayList<>();
 	ArrayList<Label> labels = new ArrayList<>();
-//	TextField[] tFields = new TextField[] {carIDTF,dateTF, chassisTF,yearTF,monthTF,dayTF};
-//	HBox[] boxes = new HBox[] {carIDBox,dateBox,chassisbox,yearBox,monthBox,dayBox};
 	final double _4_5_CHARS_TF = 50;
 	final double _2CHARS_TF = 30;
 	final double _10CHARS_TF = 90;

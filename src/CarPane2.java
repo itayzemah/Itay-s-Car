@@ -1,10 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-
-import javax.swing.text.html.MinimalHTMLWriter;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,21 +8,25 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class CarPane2 extends Application implements CarPaneFinals2 {
+public class CarPane2  implements CarPaneFinals2 {
 	private Stage carStage;
 	private Scene carScene;
 	private Image image1;
@@ -36,8 +36,7 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 	private Image image3;
 	private ImageView imageView3;
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public CarPane2(Car car) throws FileNotFoundException{
 		carStage = new Stage();
 		BorderPane layout = new BorderPane();
 		carScene = new Scene(layout);
@@ -46,12 +45,33 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 		enterFieldsToCenter(center);
 		right(layout);
 		layout.setCenter(center);
-		layout.setStyle("style.css");
+		layout.setBottom(bottom());
+//		layout.setStyle("style.css");
 		carStage.setScene(carScene);
-		layout.getCenter().setStyle("-fx-background-image: url(\"C:\\Users\\itayz\\eclipse-workspace\\Itay'sCar\\src\\CrystalClear.jpg\");-fx-background-size: 500, 500;-fx-background-repeat: no-repeat;");
-
+//		layout.getCenter().setStyle("-fx-background-image: url(\"file:///C:\\Users\\itayz\\eclipse-workspace\\Itay'sCar\\src\\CrystalClear.jpg\");"
+//		        + "-fx-background-size: 500, 500;"
+//		        + "-fx-background-repeat: no-repeat;");
 		sizeOfStage();
 		carStage.show();
+
+	}
+
+	private Node bottom() {
+		FlowPane p = new FlowPane();
+		p.getChildren().add(details);
+		details.setOnAction(e -> handleFetailsBtn()); 
+		p.setPadding(new Insets(_2CHARS_TF));
+		return p;
+	}
+
+	private void handleFetailsBtn() {
+			Stage detailsStage = new Stage();
+			StackPane detailsPane = new StackPane();
+//	detailsPane.getChildren().add();
+			Scene scene = new Scene(detailsPane, 960, 600);
+			detailsStage.setScene(scene);
+			detailsStage.show();
+		
 
 	}
 
@@ -80,7 +100,7 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 		imageView3.setFitHeight(255);
 		imageView3.setFitWidth(300);
 		imageView3.setOnMouseClicked(e -> {
-			showPic(image2);
+			showPic(image3);
 		});
 
 		button3.setOnAction(e -> {
@@ -175,21 +195,25 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 		fourthRow(center);
 
 		fifthRow(center);
-		
+
 		sixthRow(center);
 
 	}
 
 	private void sixthRow(GridPane center) {
-		center.add(combine(discriptionTF, discriptionL), 0, 5,3,2);
-		center.add(combine(noteTF, noteL), 3, 5,2,2);
-		
+		center.add(combine(discriptionTF, discriptionL), 0, 5, 3, 2);
+		center.add(combine(bondagesCB, bondagesL), 2, 5);
+		center.add(combine(noteTF, noteL), 3, 5, 2, 2);
+
 		suit6Row();
 	}
-	
+
 	private void suit6Row() {
 		discriptionTF.setPrefSize(400, 200);
+		discriptionTF.alignmentProperty().set(Pos.TOP_RIGHT);
 		noteTF.setPrefSize(400, 200);
+		noteTF.alignmentProperty().set(Pos.TOP_RIGHT);
+		new AutoCompleteComboBoxListener<>(bondagesCB);
 	}
 
 	private void fifthRow(GridPane center) {
@@ -266,6 +290,7 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 
 	private HBox combine(Node node1, Node node2) {
 		HBox hb = new HBox();
+		// hb.alignmentProperty().set(Pos.TOP_RIGHT);
 		hb.getChildren().addAll(node1, node2);
 		hb.setSpacing(5);
 		return hb;
@@ -275,17 +300,12 @@ public class CarPane2 extends Application implements CarPaneFinals2 {
 		HBox hb = new HBox();
 		hb.getChildren().addAll(node1, node2, node3);
 		hb.setSpacing(5);
+		hb.alignmentProperty().set(Pos.CENTER);
 		return hb;
 	}
 
-	private Node combineToR(Node n1, Node n2) {
-		HBox hb = new HBox();
-		hb.setAlignment(Pos.TOP_RIGHT);
-		return hb;
-	}
-
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 }
