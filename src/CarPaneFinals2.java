@@ -11,8 +11,8 @@ import javafx.scene.layout.HBox;
 public interface CarPaneFinals2 {
 
 	// --- first row nodes-------
-	TextField carIDTF = new TextField();
-	Label carIDL = new Label("מספר רישוי");
+	final TextField carIDTF = new TextField();
+	final Label carIDL = new Label("מספר רישוי");
 
 	TextField chassisTF = new TextField();
 	Label cahssisL = new Label("שלדה");

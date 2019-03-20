@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -40,7 +41,12 @@ class AddButton extends CommandButton {
 
 	@Override
 	public void Execute() {
-		CarPane pane = new CarPane(carsList);
+		try {
+			CarPane2 pane = new CarPane2(carsList);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Car getCar() {

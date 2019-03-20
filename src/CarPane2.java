@@ -1,13 +1,21 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -46,6 +54,7 @@ public class CarPane2  implements CarPaneFinals2 {
 		right(layout);
 		layout.setCenter(center);
 		layout.setBottom(bottom());
+		insertDetailsOfCarToFiels(car);
 //		layout.setStyle("style.css");
 		carStage.setScene(carScene);
 //		layout.getCenter().setStyle("-fx-background-image: url(\"file:///C:\\Users\\itayz\\eclipse-workspace\\Itay'sCar\\src\\CrystalClear.jpg\");"
@@ -54,6 +63,82 @@ public class CarPane2  implements CarPaneFinals2 {
 		sizeOfStage();
 		carStage.show();
 
+	}
+	
+	public CarPane2(ObservableList<Car> list) throws FileNotFoundException {
+		carStage = new Stage();
+		BorderPane layout = new BorderPane();
+		carScene = new Scene(layout);
+		carStage.setTitle("רכב חדש");
+		GridPane center = new GridPane();
+		enterFieldsToCenter(center);
+		right(layout);
+		layout.setCenter(center);
+		layout.setBottom(bottom());
+		carStage.setScene(carScene);
+		dateModifyTF.setText(String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"))));
+		Button done = new Button("סיים");
+		done.setOnAction(e -> {
+			if (allFieldFull()) {
+				addCar(list, new Car(Integer.parseInt(this.carIDTF.getText()), this.chassisTF.getText(),
+						String.valueOf(this.dateModifyTF.getText())));
+				carStage.close();
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("שגיאה");
+				alert.setHeaderText(null);
+				alert.setContentText("יש למלא את כל השדות!");
+				alert.showAndWait();
+			}
+
+		});
+
+		carStage.setOnCloseRequest(e -> {
+			boolean toClose;
+			toClose = checkForDelete();
+			if (toClose == true) {
+				carStage.close();
+			} else {
+				e.consume();
+			}
+		});
+		center.add(done, 10, 10);
+		sizeOfStage();
+		carStage.show();
+	}
+
+
+	private boolean checkForDelete() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("ביטול הקמת רכב חדש");
+		alert.setHeaderText("פעולת ביטול");
+		alert.setContentText("האם אתה בטוח שברצונך לבטל את הקמת הרכב?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private void addCar(ObservableList<Car> list, Car car) {
+		list.add(car);
+
+	}
+	
+	private boolean allFieldFull() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	protected void insertDetailsOfCarToFiels(Car car) {
+		carIDTF.setText(car.getcarID());
+		carIDTF.setEditable(false);
+		dateModifyTF.setText(car.getDate());
+		dateModifyTF.setEditable(false);
+		chassisTF.setText(car.getchassis());
+		chassisTF.setEditable(false);
 	}
 
 	private Node bottom() {
