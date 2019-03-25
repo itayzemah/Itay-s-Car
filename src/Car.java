@@ -7,18 +7,20 @@ public class Car {
 	private StringProperty carID;
     private StringProperty chassis;
     private StringProperty date;
+    private StringProperty listPrice;
 
 	//**************************//
 	//		Contractors			//
 	//**************************//
-	public Car(StringProperty id,StringProperty chasiss,StringProperty date) {
+	public Car(StringProperty id,StringProperty chasiss,StringProperty date,StringProperty listPrice) {
 		this.carID = id;
 		this.chassis = chasiss;
 		this.date = date;
+		this.listPrice = listPrice;
 	}
-	public Car(int id, String chasiss,String date) {
+	public Car(int id, String chasiss,String date,int listPrice) {
 		this(new SimpleStringProperty(String.valueOf(id)),new SimpleStringProperty(chasiss),
-				new SimpleStringProperty(date));
+				new SimpleStringProperty(date),new SimpleStringProperty(String.valueOf(listPrice)));
 	}
 	
 	

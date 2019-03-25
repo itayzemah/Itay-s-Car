@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,14 +26,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -44,6 +42,54 @@ public class CarPane2  implements CarPaneFinals2 {
 	private Image image3;
 	private ImageView imageView3;
 
+	// --- first row nodes-------
+	private TextField carIDTF = new TextField();
+	private Label carIDL = new Label("מספר רישוי");
+
+	private TextField chassisTF = new TextField();
+	private Label cahssisL = new Label("שלדה");
+
+	private ObservableList<String> status = FXCollections.observableArrayList("נתניה", "הרצליה", "outlet");
+	private ComboBox<String> statusCB = new ComboBox<>(status);
+	private Label statusL = new Label("סטטוס");
+
+	private CheckBox onLine = new CheckBox("מוצג באתר");
+
+	private Label dateModifyL = new Label("תאריך כניסה");
+	private TextField dateModifyTF = new TextField();
+	
+	// ----- second row nodes----
+	private Label listPriceL = new Label("מחירון");
+	private TextField listPriceTF = new TextField();
+
+	private ObservableList<String> colors = FXCollections.observableArrayList("שחור", "לבן", "אדום", "אפור", "ברונזה",
+			"לבן פנינה");
+	private ComboBox<String> colorsCB = new ComboBox<>(colors);
+	private Label colorsL = new Label("צבע");
+
+	private Button modelsList = new Button("רשימת מודלים");
+
+	private ObservableList<String> models = FXCollections.observableArrayList();
+	private ComboBox<String> modelsCB = new ComboBox<>(models);
+	private Label modelsL = new Label("דגם");
+	
+	// ------- third row nodes---------
+	private Label shopPriceL = new Label("מחיר");
+	private TextField shopPriceTF = new TextField();
+
+	private ObservableList<String> originally = FXCollections.observableArrayList("פרטי", "ליסינג מימוני", "ליסינג תפעולי",
+			"השכרה", "חברה");
+	private ComboBox<String> originallyCB = new ComboBox<>(originally);
+	private Label originallyL = new Label("מקוריות");
+
+	private Button ownersList = new Button("רשימת לקוחות");
+	private Button ownerDetails = new Button("פרטי לקוח");
+
+	private ObservableList<String> owners = FXCollections.observableArrayList();
+	private ComboBox<String> ownersCB = new ComboBox<>(owners);
+	private Label ownersL = new Label("בעלים");
+	
+	
 	public CarPane2(Car car) throws FileNotFoundException{
 		carStage = new Stage();
 		BorderPane layout = new BorderPane();
@@ -57,12 +103,13 @@ public class CarPane2  implements CarPaneFinals2 {
 		insertDetailsOfCarToFiels(car);
 //		layout.setStyle("style.css");
 		carStage.setScene(carScene);
-//		layout.getCenter().setStyle("-fx-background-image: url(\"file:///C:\\Users\\itayz\\eclipse-workspace\\Itay'sCar\\src\\CrystalClear.jpg\");"
-//		        + "-fx-background-size: 500, 500;"
-//		        + "-fx-background-repeat: no-repeat;");
+//		layout.getCenter().setStyle("-fx-background-image: url('file:C:\\Users\\itayz\\eclipse-workspace\\Itay'sCar\\src\\CrystalClear.jpg');"
+//                + "-fx-background-size: 500, 500;"
+//                + "-fx-background-repeat: no-repeat;");
 		sizeOfStage();
 		carStage.show();
-
+		carStage.setOnCloseRequest( e-> {
+		});
 	}
 	
 	public CarPane2(ObservableList<Car> list) throws FileNotFoundException {
@@ -80,8 +127,8 @@ public class CarPane2  implements CarPaneFinals2 {
 		Button done = new Button("סיים");
 		done.setOnAction(e -> {
 			if (allFieldFull()) {
-				addCar(list, new Car(Integer.parseInt(this.carIDTF.getText()), this.chassisTF.getText(),
-						String.valueOf(this.dateModifyTF.getText())));
+				addCar(list, new Car(Integer.parseInt(carIDTF.getText()), chassisTF.getText(),
+						String.valueOf(dateModifyTF.getText()),checkAndReturnInt(listPriceTF.getText(),listPriceL)));
 				carStage.close();
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -104,9 +151,30 @@ public class CarPane2  implements CarPaneFinals2 {
 		});
 		center.add(done, 10, 10);
 		sizeOfStage();
+		clearAllTextFiels();
 		carStage.show();
 	}
 
+
+	private void clearAllTextFiels() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private int checkAndReturnInt(String val, Label l) {
+		int good = -100;
+		while (good < 0)
+		try {
+		good = Integer.valueOf(val);
+		}catch (NumberFormatException  e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("שגיאה");
+			alert.setHeaderText(null);
+			alert.setContentText("טעות בשדה" + l.getText());
+			alert.showAndWait();
+		}
+		return good;
+	}
 
 	private boolean checkForDelete() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);

@@ -8,7 +8,7 @@ public class Inventory extends BorderPane {
 	private ObservableList<Car> carsList = FXCollections.observableArrayList();
 	
 	public Inventory() {
-		Car c = new Car(13, "dddddd" , "07/02/19");
+		Car c = new Car(13, "dddddd" , "07/02/19",1234);
 		carsList.add(c);
 		initTable();
 		initBottomPane();
